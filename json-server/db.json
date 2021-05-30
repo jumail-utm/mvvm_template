@@ -1,0 +1,30 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "Alexander Holmes",
+      "photoUrl": "https://randomuser.me/api/portraits/thumb/men/75.jpg",
+      "login": "alex",
+      "password": "123"
+    },
+    {
+      "id": 2,
+      "name": "Jessica Walters",
+      "photoUrl": "https://randomuser.me/api/portraits/thumb/women/75.jpg",
+      "login": "jessica",
+      "password": "123"
+    }
+  ],
+  "counters": [
+    {
+      "counter": 1,
+      "id": 1,
+      "user": 1
+    },
+    {
+      "counter": 2,
+      "id": 2,
+      "user": 2
+    }
+  ]
+}
