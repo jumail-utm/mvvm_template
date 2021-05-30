@@ -1,3 +1,4 @@
+import 'package:exercise3/screens/main/counter_viewmodel.dart';
 import 'package:flutter/material.dart';
 
 import 'widgets/bar/signed_in_bar.dart';
@@ -17,16 +18,19 @@ class MainScreen extends StatelessWidget {
       child: SafeArea(
         child: View(
           viewmodel: MainViewmodel(),
-          builder: (_, viewmodel, __) {
-            if (viewmodel.isUserSignedIn) {
+          builder: (_, mainViewmodel, __) {
+            if (mainViewmodel.isUserSignedIn) {
+              final _counterViewmodel =
+                  CounterViewmodel(mainViewmodel: mainViewmodel);
+
               return Scaffold(
-                appBar: SignedInBar(viewmodel),
-                body: Body(viewmodel),
-                floatingActionButton: Float(viewmodel),
+                appBar: SignedInBar(mainViewmodel),
+                body: Body(_counterViewmodel),
+                floatingActionButton: Float(_counterViewmodel),
               );
             }
 
-            return Scaffold(appBar: UnsignedInBar(viewmodel));
+            return Scaffold(appBar: UnsignedInBar(mainViewmodel));
           },
         ),
       ),

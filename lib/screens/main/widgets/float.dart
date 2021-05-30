@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-import '../main_viewmodel.dart';
+import '../counter_viewmodel.dart';
 
 class Float extends StatelessWidget {
-  final MainViewmodel _viewmodel;
-  const Float(viewmodel) : _viewmodel = viewmodel;
+  final CounterViewmodel _counterViewmodel;
+  const Float(counterViewmodel) : _counterViewmodel = counterViewmodel;
 
   @override
   Widget build(BuildContext context) {
@@ -17,6 +17,6 @@ class Float extends StatelessWidget {
   }
 
   void _onPressPlusButton(BuildContext context) async {
-    _viewmodel.increaseCounter();
+    _counterViewmodel.increaseCounter();
   }
 }
