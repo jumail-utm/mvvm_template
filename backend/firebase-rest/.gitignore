@@ -1,3 +1,6 @@
+# custom folder - emulator backup 
+.data
+
 # Logs
 logs
 *.log
