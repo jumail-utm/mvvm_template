@@ -1,11 +1,14 @@
 class User {
-  int _id;
+  dynamic
+      _id; // Use dynamic type because json-server id is int and firestore id is string
   String _name;
   String _photoUrl;
   String _login;
   String _password;
 
+  // ignore: unnecessary_getters_setters
   get id => _id;
+  // ignore: unnecessary_getters_setters
   set id(value) => _id = value;
 
   get name => _name;
@@ -21,7 +24,7 @@ class User {
   set password(value) => _password = value;
 
   User(
-      {int id,
+      {dynamic id,
       String name = '',
       String photoUrl = '',
       String login = '',
@@ -41,11 +44,11 @@ class User {
 
   User.fromJson(Map<String, dynamic> json)
       : this(
-          id: json['id'] ?? 0,
-          name: json['name'] ?? '',
-          photoUrl: json['photoUrl'] ?? '',
-          login: json['login'] ?? '',
-          password: json['password'] ?? '',
+          id: json['id'],
+          name: json['name'],
+          photoUrl: json['photoUrl'],
+          login: json['login'],
+          password: json['password'],
         );
 
   Map<String, dynamic> toJson() => {
