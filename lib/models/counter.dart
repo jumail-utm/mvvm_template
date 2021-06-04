@@ -1,18 +1,23 @@
 class Counter {
-  int _id;
-  int _user;
+  dynamic
+      _id; // Use dynamic type because json-server id is int and firestore id is string
+  dynamic _user;
   int _counter;
 
+// ignore: unnecessary_getters_setters
   get id => _id;
+  // ignore: unnecessary_getters_setters
   set id(value) => _id = value;
 
+  // ignore: unnecessary_getters_setters
   get user => _user;
+  // ignore: unnecessary_getters_setters
   set user(value) => _user = value;
 
   get counter => _counter;
   set counter(value) => _counter = value;
 
-  Counter({int counter = 0, int id, int user})
+  Counter({int counter = 0, dynamic id, dynamic user})
       : _counter = counter,
         _id = id,
         _user = user;
@@ -22,9 +27,9 @@ class Counter {
 
   Counter.fromJson(Map<String, dynamic> json)
       : this(
-          counter: json['counter'] ?? '',
-          id: json['id'] ?? 0,
-          user: json['user'] ?? 0,
+          counter: json['counter'],
+          id: json['id'],
+          user: json['user'],
         );
 
   Map<String, dynamic> toJson() => {

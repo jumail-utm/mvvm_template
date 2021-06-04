@@ -2,7 +2,7 @@ import '../../models/counter.dart';
 import 'counter_service.dart';
 
 class CounterServiceMock implements CounterService {
-  Future<Counter> getCounterByUser(int userId) async {
+  Future<Counter> getCounterByUser(dynamic userId) async {
     Counter _counter = _counters.firstWhere((counter) => counter.user == userId,
         orElse: () => null);
     return _counter;
