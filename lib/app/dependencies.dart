@@ -16,8 +16,12 @@ GetIt dependency = GetIt.instance;
 
 void init() {
   // Services
+
   dependency.registerLazySingleton<RestService>(
-    () => RestService(baseUrl: 'http://192.168.0.5:3000'),
+    // () => RestService(baseUrl: 'http://192.168.0.5:3000'),  // with Local JSON-server
+    () => RestService(
+        baseUrl:
+            'http://192.168.0.5:5001/mvvm-frontend-and-mvc-backend/us-central1/api'), // with Local Firebase
   );
 
   dependency.registerLazySingleton<CounterService>(() => CounterServiceRest());

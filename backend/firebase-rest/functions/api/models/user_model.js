@@ -9,12 +9,12 @@ const Model = require('./model')
 
 // Here, we are implementing the class with Singleton design pattern
 
-class CounterModel extends Model {
+class UserModel extends Model {
     constructor() {
-        super('counters')
+        super('users')
         if (this.instance) return this.instance
-        CounterModel.instance = this
+        UserModel.instance = this
     }
 }
 
-module.exports = new CounterModel()
+module.exports = new UserModel()

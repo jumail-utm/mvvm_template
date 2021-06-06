@@ -1,20 +1,44 @@
 ### Use this file to test out your REST call before implementing them in the code
 
+# Local JSON-Server
 ### Change the IP address below to your PC's IP address. Remain the port number 3000 unchanged
-@baseUrl = http://192.168.0.5:3000
+# @baseUrl = http://192.168.0.5:3000
+
+# Local Firebase Emulator 
+@baseUrl = http://192.168.0.5:5001/mvvm-frontend-and-mvc-backend/us-central1/api
+
+# Live Firebase
+# @baseUrl = http://192.168.0.5:3000
 
 ### Request 1 : Get a user whose correct 'login' and 'password'
 ### Purpose   : To simulate the authentication process. 
-GET {{baseUrl}}/users?login=alex&password=123x
+GET {{baseUrl}}/users?login=alex&password=123
 
 ### Request 2 : Get the counter data  for a given user
-GET {{baseUrl}}/counters?user=2
+GET {{baseUrl}}/counters?user=user2
 
 ### Request 3 : Update the information of a given counter
-PUT {{baseUrl}}/counters/2
+PUT {{baseUrl}}/counters/counter1
 Content-Type: application/json
 
 {
-    "user": 2,
+    "user": "user1",
     "counter": 2
 }
+
+### Request: Get all users
+GET {{baseUrl}}/users
+
+### Request: Add a new user
+POST {{baseUrl}}/users
+Content-Type: application/json
+
+{
+    "login": "user4",
+    "password": "123",
+    "name": "John Doe",
+    "id": "user4"
+}
+
+### Request: Delete a user
+DELETE {{baseUrl}}/users/M0USorawg6O3xJawA8i7

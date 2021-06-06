@@ -7,16 +7,16 @@
 const functions = require("firebase-functions")
 const express = require("express")
 const app = express();
-const counterRouter = require('./api/controllers/counter_controller')
+const usersRouter = require('./api/controllers/users_controller')
+const countersRouter = require('./api/controllers/counters_controller')
 
-// app.use(json())
-// app.use('/todos', counterRouter)
-
-// export const api = https.onRequest(app)
+app.use(express.json())
+app.use('/users', usersRouter)
+app.use('/counters', countersRouter)
 
 // export const functionsTimeOut = runWith({
 //     timeoutSeconds: 300
 // })
 
-exports.setupdb = functions.https.onRequest(require('./tools/setup_database'))
-// exports.hello = functions.https.onRequest( (_req,res)=>res.json({m:'Hello World'}))
+// exports.setupdb = functions.https.onRequest(require('./tools/setup_database'))
+exports.api = functions.https.onRequest(app)
