@@ -21,3 +21,4 @@
 -Change settings in firebase.json (for functions) to run on host (with your local IP address), instead of literal 'localhost'
 - [Setting Up Firebase Emulator with IP Address (instead of localhost)](https://github.com/danahartweg/testing-cloud-firestore/blob/master/server/firebase.json)
 - [Importing and Exporting Authentication Data on Firebase Using CLI](https://firebase.google.com/docs/cli/auth)
+- [Importing SHA hashed passwords into Firebase and Identity Platform](https://salmaan-rashid.medium.com/importing-sha-hashed-password-into-firebase-and-identity-platform-2930a83c1b8b)

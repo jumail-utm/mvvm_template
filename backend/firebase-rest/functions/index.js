@@ -18,5 +18,6 @@ app.use('/counters', countersRouter)
 //     timeoutSeconds: 300
 // })
 
-// exports.setupdb = functions.https.onRequest(require('./tools/setup_database'))
+exports.setupdb = functions.https.onRequest(require('./tools/setup_database'))
+exports.setupauth = functions.https.onRequest(require('./tools/setup_authentications'))
 exports.api = functions.https.onRequest(app)

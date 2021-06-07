@@ -8,16 +8,16 @@
 
 'use strict'
 
-const firebase = require('./firebase/firebase_admin');
+const _firebase = require('./firebase/firebase_admin');
 
-const EMPTY_OBJECT = {}
-const EMPTY_LIST = []
+const _EMPTY_OBJECT = {}
+const _EMPTY_LIST = []
 
 class Model {
 
     constructor(collectionName) {
 
-        this.firestore = firebase.firestore()
+        this.firestore = _firebase.firestore()
         this.collectionName = collectionName
         this.collectionRef = this.firestore.collection(this.collectionName)
     }
@@ -30,10 +30,10 @@ class Model {
 
     _documentRefToData(documentRef) {
 
-        if (!documentRef) return EMPTY_OBJECT  // Record not found
+        if (!documentRef) return _EMPTY_OBJECT  // Record not found
 
         const document = documentRef.data()
-        if (document == undefined) return EMPTY_OBJECT
+        if (document == undefined) return _EMPTY_OBJECT
 
         document.id = documentRef.id
         return document
@@ -41,7 +41,7 @@ class Model {
 
     _documentRefListToList(documentRefList) {
 
-        if (!documentRefList) return EMPTY_LIST
+        if (!documentRefList) return _EMPTY_LIST
 
         const list = []
         documentRefList.forEach(documentRef => list.push(this._documentRefToData(documentRef)))
@@ -57,7 +57,7 @@ class Model {
 
     // Get a document given its id from the collection
     async getDocument(documentId) {
-        if (!documentId) return EMPTY_OBJECT
+        if (!documentId) return _EMPTY_OBJECT
 
         const documentRef = await this.collectionRef.doc(documentId).get()
         return this._documentRefToData(documentRef)
@@ -65,7 +65,7 @@ class Model {
 
     // Find a document (the first matches) that satifies the search criterian by the 'fn' callback
     async findDocument(fn) {
-        if (!fn) return EMPTY_OBJECT
+        if (!fn) return _EMPTY_OBJECT
 
         const list = await this.getDocumentList()
         return list.find(fn)
@@ -73,7 +73,7 @@ class Model {
 
     // Find documents that satify the search criterian by the 'fn' callback
     async findDocumentList(fn) {
-        if (!fn) return EMPTY_LIST
+        if (!fn) return _EMPTY_LIST
 
         const list = await this.getDocumentList()
         return list.filter(fn)
@@ -131,7 +131,7 @@ class Model {
 
         for (let fieldName in queryFilters) {
             const noMatch = documentRefList.empty
-            if (noMatch) return EMPTY_LIST
+            if (noMatch) return _EMPTY_LIST
 
             const fieldValue = queryFilters[fieldName]
             queryRef = queryRef.where(fieldName, '==', fieldValue)
@@ -155,7 +155,7 @@ class Model {
         const documentRef = this.collectionRef.doc(documentId)
         const existingDocumentRef = await documentRef.get()
 
-        if (!existingDocumentRef.exists) return EMPTY_OBJECT  // Record not found
+        if (!existingDocumentRef.exists) return _EMPTY_OBJECT  // Record not found
 
         await documentRef.set(documentData)
 
@@ -168,7 +168,7 @@ class Model {
         const documentRef = this.collectionRef.doc(documentId)
         const existingDocumentRef = await documentRef.get()
 
-        if (!existingDocumentRef.exists) return EMPTY_OBJECT // Record not found
+        if (!existingDocumentRef.exists) return _EMPTY_OBJECT // Record not found
 
         await documentRef.delete()
 
