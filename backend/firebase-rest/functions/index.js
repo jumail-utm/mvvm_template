@@ -14,9 +14,11 @@ app.use(express.json())
 app.use('/users', usersRouter)
 app.use('/counters', countersRouter)
 
-// export const functionsTimeOut = runWith({
-//     timeoutSeconds: 300
-// })
+
+// To handle "Function Timeout" exception
+exports.functionsTimeOut = functions.runWith({
+    timeoutSeconds: 300
+})
 
 exports.setupdb = functions.https.onRequest(require('./tools/setup_database'))
 exports.setupauth = functions.https.onRequest(require('./tools/setup_authentications'))

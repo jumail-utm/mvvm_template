@@ -5,10 +5,10 @@
 # @baseUrl = http://192.168.0.5:3000
 
 # Local Firebase Emulator 
-@baseUrl = http://192.168.0.5:5001/mvvm-frontend-and-mvc-backend/us-central1/api
+# @baseUrl = http://192.168.0.5:5001/mvvm-frontend-and-mvc-backend/us-central1/api
 
 # Live Firebase
-# @baseUrl = http://192.168.0.5:3000
+@baseUrl = https://us-central1-mvvm-frontend-and-mvc-backend.cloudfunctions.net/api
 
 ### Request 1 : Get a user whose correct 'login' and 'password'
 ### Purpose   : To simulate the authentication process. 

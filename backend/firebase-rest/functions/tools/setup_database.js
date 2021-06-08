@@ -47,31 +47,27 @@ const _collectionsJson = {
 const _firestore = require('../api/models/firebase/firebase_admin').firestore()
 
 async function setupDatabase(_req, res, _next) {
-  // Uncomment the following if you want to delete the existing data
-  // const collectionNames = ['users', 'counters']
-  // collectionNames.forEach(async (collectionName)=>{
-  //   const collection = document.firestore.collection(collectionName)
-  //   const documents = await collection.listDocuments()
-  //   documents.forEach((document) => document.delete())
-  // })
-
 
   // Start adding the data to the database
-  for (let collectionName in _collectionsJson) {
+  for (const collectionName in _collectionsJson) {
+
     const collectionData = _collectionsJson[collectionName]
-    collectionData.forEach(async (documentData) => {
-      const documentId = documentData.id
-      if (documentId) {
+
+    for (const documentData of collectionData) {
+      if (documentData && documentData.id) {
+        const documentId = documentData.id
 
         // id will not be included in the database. it is used only to name the document
         delete documentData.id
 
-        // _firestore.create(collectionName, documentData, documentId)
-        _firestore.collection(collectionName).doc(documentId).set(documentData)
+        const result = await _firestore.collection(collectionName).doc(documentId).set(documentData)
+        console.log({ documentId, result })
       }
-      else _firestore.collection(collectionName).add(documentData)
-      // else _firestore.create(collectionName, documentData)
-    })
+      else {
+        await _firestore.collection(collectionName).add(documentData)
+        console.log('auto gen doc id')
+      }
+    }
   }
 
   res.send('Setting Up Database.... Done ')

@@ -23,7 +23,9 @@ const _userAuthList = [
 ];
 
 async function setupAuthentication(_req, res, _next) {
-  _userAuthList.forEach( async user => await _auth.createUser(user))
+  for (const user of _userAuthList){
+    await _auth.createUser(user)
+  }
   res.send('Importing authentications.... Done ')
 }
 
