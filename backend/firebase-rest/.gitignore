@@ -1,5 +1,10 @@
+# config.js should not be tracked to hide the server API_KEY
+functions/api/config.js
+functions/tools/test_requests_with-firebase-auth.rest
+
 # custom folder - emulator backup 
-.data
+.data/
+.vscode/
 
 # Logs
 logs

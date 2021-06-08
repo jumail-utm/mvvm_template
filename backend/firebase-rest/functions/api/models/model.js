@@ -13,6 +13,11 @@ const _firebase = require('./firebase/firebase_admin');
 const _EMPTY_OBJECT = {}
 const _EMPTY_LIST = []
 
+// Notes: think of this class as model class for Firestore-related
+//        That means, for authentication model, it should not be
+//        extended from this class because Auth model does not use
+//        Firestore service, but instead the Authentication service  
+
 class Model {
 
     constructor(collectionName) {

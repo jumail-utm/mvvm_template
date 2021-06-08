@@ -1,0 +1,98 @@
+# Live Firebase
+# Variables:
+#   -baseUrl: API base URL
+#   -API KEY: project API key obtained from Firebase console (website)
+#   -accountUrl: base URL for authentication from Firebase
+@baseUrl = https://us-central1-mvvm-frontend-and-mvc-backend.cloudfunctions.net/api
+@API_KEY = replace_this_with_your_own_api_key
+@accountUrl = https://identitytoolkit.googleapis.com/v1/accounts
+
+# Each consequence request must be included with access token
+# Then token is obtained after logging in
+
+@accessToken =replace_with_an_access_token
+@userId=replace_with_a_user_id
+
+############################################################################################################
+## Request 1: Sign up with email / password
+# Accessing the Google Sign up API directly from the clien
+# 
+# API format:
+#    POST https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=[API_KEY]
+# 
+# Documentation:  https://firebase.google.com/docs/reference/rest/auth
+
+POST {{accountUrl}}:signUp?key={{API_KEY}}
+Content-Type: application/json
+
+{
+    "email": "jessica2@mockmail.com",
+    "password": "abc123",
+    "returnSecureToken": true
+}
+
+### Request 2 Sign in with email and password
+# Accessing the Google Sign in API directly from the clien
+# 
+# API format:
+#     POST https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=[API_KEY]
+POST {{accountUrl}}:signInWithPassword?key={{API_KEY}}
+Content-Type: application/json
+
+{
+    "email": "any3@mockmail.com",
+    "password": "abc123",
+    "returnSecureToken": true
+}
+############################################################################################################
+
+
+
+############################################################################################################
+# Refactor the signin with Google API, sign in from the backend (with Node JS)
+
+## Request 1: Sign up with email / password  
+POST {{baseUrl}}/auths/signup
+Content-Type: application/json
+
+{
+    "email": "anytwo@anywhere.com",
+    "password": "abc123"
+}
+
+### Request 2 Sign in with email and password
+POST {{baseUrl}}/auths/signin
+Content-Type: application/json
+
+{
+    "email": "anyone@anywhere.com",
+    "password": "abc123"
+}
+
+### Request 3 : Accessing profile for the signed in user
+GET {{baseUrl}}/users/{{userId}}
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+### Request 4 : Accessing all users. 
+# This request should be blocked (in this example of application). The signed-in user
+# can only acccess his/her profile, but not the others'
+GET {{baseUrl}}/users
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+### Request 5 : Accessing the counter info for the signed in user
+GET {{baseUrl}}/counters/{{userId}}
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+### Request 6 : Update the information of a given counter
+PUT {{baseUrl}}/counters/{{userId}}
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+{
+    "user": "user1",
+    "counter": 0
+}
+

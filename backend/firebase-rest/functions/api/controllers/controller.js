@@ -7,16 +7,24 @@
 // Update: 4 Jun 2021
 
 'use strict'
-const express = require('express')
+const _log = require('firebase-functions').logger.log
+
+const _express = require('express')
+const {verifyUserCanAccessResource} = require('./auths_controller')
 
 class Controller {
     constructor(model) {
         this.model = model
-        this.router = express.Router()
+        this.router = _express.Router()
+        
+
+        this.router.use('/:id',verifyUserCanAccessResource)
 
         // Get all Counter documents
         this.router.get('/', async (req, res, next) => {
             try {
+                // _log('req.user', req.user)
+                
                 const result = await this.model.queryDocumentList(req.query)
                 return res.json(result)
             }
