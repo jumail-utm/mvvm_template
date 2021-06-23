@@ -10,7 +10,7 @@
 const _log = require('firebase-functions').logger.log
 
 const _express = require('express')
-const {verifyUserCanAccessResource} = require('./auths_controller')
+const {verifyUserCanAccessResource, verifyAdminAccess} = require('./auths_controller')
 
 class Controller {
     constructor(model) {
@@ -18,10 +18,12 @@ class Controller {
         this.router = _express.Router()
         
 
+        // User can only access his/her document
         this.router.use('/:id',verifyUserCanAccessResource)
 
         // Get all Counter documents
-        this.router.get('/', async (req, res, next) => {
+        // Attached with verifyAdminAccess middleware, so that only admin can access ALL documents
+        this.router.get('/', verifyAdminAccess, async (req, res, next) => {
             try {
                 // _log('req.user', req.user)
                 

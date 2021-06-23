@@ -4,7 +4,7 @@
 // Update: 9 Jun 2021
 
 'use strict'
-// const _log = require('firebase-functions').logger.log
+const _log = require('firebase-functions').logger.log
 
 const _express = require('express')
 
@@ -51,7 +51,7 @@ class AuthsController {
         //         return res.sendStatus(200)
         //     }
         //     catch (e) {
-        //         // //_log('signout error ', e)  // only for debugging
+                //_log('signout error ', e)  // only for debugging
         //         return next(e)
         //     }
         // })
@@ -71,9 +71,9 @@ async function verifyAccessToken(req, res, next) {
         const authModel = require('../models/auth_model')
         const verifiedToken = await authModel.verifyHTTPToken(req)
 
-        // //_log('auths_controller.js > verifyAccessToken: ', {authModel, req} )
+        //_log('auths_controller.js > verifyAccessToken: ', {authModel, req} )
 
-        if (verifiedToken){
+        if (verifiedToken) {
             req.user = verifiedToken // To pass the token the next middleware
             return next()
         }
@@ -109,6 +109,36 @@ async function verifyUserCanAccessResource(req, res, next) {
     }
 }
 
+// Verify Admin Access.
+//  To verify whether the user has admin access. This info is stored in
+//  firestore collection 'admins'
+
+async function verifyAdminAccess(req, res, next) {
+    try {
+        const authModel = require('../models/auth_model')
+
+        _log('auths_controller.js > verifyAdminAccess > 1: ', {authModel, req} )
+
+        const verifiedToken = await authModel.verifyHTTPAdminAccess(req)
+
+        _log('auths_controller.js > verifyAdminAccess > 2: ', {verifiedToken} )
+
+        if (verifiedToken) {
+            req.user = verifiedToken // To pass the token the next middleware
+            return next()
+        }
+        else return res.sendStatus(403)
+    }
+    catch (e) {
+        return next(e)
+    }
+}
+
 
 const authsRouter = new AuthsController().router
-module.exports = { authsRouter, verifyAccessToken, verifyUserCanAccessResource}
+module.exports = {
+    authsRouter,
+    verifyAccessToken,
+    verifyUserCanAccessResource,
+    verifyAdminAccess
+}
