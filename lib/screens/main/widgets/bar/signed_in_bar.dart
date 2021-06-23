@@ -11,7 +11,9 @@ class SignedInBar extends Bar {
   Widget build(BuildContext context) {
     return Bar(
       title: _viewmodel.user.name,
-      image: NetworkImage(_viewmodel.user.photoUrl),
+      image: _viewmodel.user.photoUrl != null
+          ? NetworkImage(_viewmodel.user.photoUrl)
+          : null,
       button: IconButton(
           icon: Icon(
             Icons.logout,
