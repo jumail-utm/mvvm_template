@@ -51,7 +51,11 @@ class RestService {
 //  share a common structure. Thus, we can refactor them into a method,
 //   i.e. _httpRequest()
 
-  Future _httpRequest(Function fn, String endpoint,
+  _httpRequest(
+      // Future<Response>  Function(Uri uri, Map<String, String> headers, Map<String, dynamic> data, Encoding encoding) fn,
+
+      Function fn,
+      String endpoint,
       {dynamic data,
       Map<String, String> headers,
       Encoding encoding,
@@ -72,19 +76,16 @@ class RestService {
   }
 
 // Send a GET request to retrieve data from a REST server
-  Future get(String endpoint, {Map<String, String> headers}) async =>
-      _httpRequest(
-          (uri, headers) async => await http.get(uri, headers: headers),
-          endpoint,
-          headers: headers);
+  get(String endpoint, {Map<String, String> headers}) => _httpRequest(
+      (uri, headers, _data, _encoding) => http.get(uri, headers: headers),
+      endpoint,
+      headers: headers);
 
   // Send a POST request to add a new in the REST server
-  Future post(String endpoint,
-          {dynamic data,
-          Map<String, String> headers,
-          Encoding encoding}) async =>
+  post(String endpoint,
+          {dynamic data, Map<String, String> headers, Encoding encoding}) =>
       _httpRequest(
-          (uri, headers, data, encoding) async => await http.post(
+          (uri, headers, data, encoding) => http.post(
                 uri,
                 headers: headers,
                 body: data,
@@ -97,12 +98,10 @@ class RestService {
           successCode: 201);
 
   // Send a PUT request to add a new in the REST server
-  Future put(String endpoint,
-          {dynamic data,
-          Map<String, String> headers,
-          Encoding encoding}) async =>
+  put(String endpoint,
+          {dynamic data, Map<String, String> headers, Encoding encoding}) =>
       _httpRequest(
-          (uri, headers, data, encoding) async => await http.put(
+          (uri, headers, data, encoding) => http.put(
                 uri,
                 headers: headers,
                 body: data,
@@ -114,12 +113,10 @@ class RestService {
           encoding: encoding);
 
 // Send a PATCH request to add a new in the REST server
-  Future patch(String endpoint,
-          {dynamic data,
-          Map<String, String> headers,
-          Encoding encoding}) async =>
+  patch(String endpoint,
+          {dynamic data, Map<String, String> headers, Encoding encoding}) =>
       _httpRequest(
-          (uri, headers, data, encoding) async => await http.patch(
+          (uri, headers, data, encoding) => http.patch(
                 uri,
                 headers: headers,
                 body: data,
@@ -131,12 +128,10 @@ class RestService {
           encoding: encoding);
 
 // Send a DELETE request to add a new in the REST server
-  Future delete(String endpoint,
-          {dynamic data,
-          Map<String, String> headers,
-          Encoding encoding}) async =>
+  delete(String endpoint,
+          {dynamic data, Map<String, String> headers, Encoding encoding}) =>
       _httpRequest(
-          (uri, headers, data, encoding) async => await http.patch(
+          (uri, headers, data, encoding) => http.patch(
                 uri,
                 headers: headers,
                 body: data,

@@ -16,6 +16,7 @@ class AuthServiceSecuredRest implements AuthService {
       // Pre-process json data to comply with the field of the User model
       json['id'] = json['localId'];
       json['name'] = json['displayName'];
+      json['photoUrl'] = json['profilePicture'];
 
       // Get the access token and let the rest object stores that
       rest.openSession(json['idToken']);

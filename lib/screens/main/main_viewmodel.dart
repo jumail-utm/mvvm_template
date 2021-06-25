@@ -10,7 +10,11 @@ class MainViewmodel extends Viewmodel {
   void authenticate(User user) =>
       update(() async => _userViewmodel.authenticate(user));
 
-  void signout() => _userViewmodel.signout();
+  void signout() async {
+    turnBusy();
+    _userViewmodel.signout();
+    turnIdle();
+  }
 
   bool get isUserSignedIn => _userViewmodel.isUserSignedIn;
 }
