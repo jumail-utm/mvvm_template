@@ -17,7 +17,7 @@ class CounterViewmodel extends Viewmodel {
   User get user => _mainViewmodel.user;
 
   void _loadUserCounter() =>
-      update(() async => _counter = await service.getCounterByUser(user.id));
+      update(() async => _counter = await service.getCounterByUser(user));
 
   // synchronizer methods
   void increaseCounter() => update(() async {

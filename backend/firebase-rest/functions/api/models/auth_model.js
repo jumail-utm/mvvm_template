@@ -16,7 +16,7 @@ const API_KEY = _functions.config().api.key
 // const API_KEY=null;
 
 // Resource: Setting Up Firebase Environment configuration
-//   https://firebase.google.com/docs/functions/config-env
+//   https://firebase.google.com/doc/functions/config-env
 
 // Notes: In this model class, we did not extend from the base class 'Model'
 //        because it does not use Firestore service. Instead it usess
@@ -35,15 +35,10 @@ class AuthModel {
 
     // Refactor the code for signin and signup. They have the same structure of code.
     //  The only difference is the endpoint url.
-
-    async _sign(endpoint, username, password) {
+    async _post(endpoint, data) {
         const url = `${_AUTH_BASE_URL}:${endpoint}?key=${API_KEY}`
         const headers = { 'Content-Type': 'application/json' }
-        const data = {
-            'email': username,
-            'password': password,
-            'returnSecureToken': true
-        }
+        data['returnSecureToken'] = true
 
         try {
             const response = await _axios.post(url, data, { headers })
@@ -52,6 +47,58 @@ class AuthModel {
             return null
         }
     }
+
+    async _sign(endpoint, username, password) {
+        return this._post(endpoint, {
+            'email': username,
+            'password': password
+        })
+    }
+
+    // async _sign(endpoint, username, password) {
+    //     const url = `${_AUTH_BASE_URL}:${endpoint}?key=${API_KEY}`
+    //     const headers = { 'Content-Type': 'application/json' }
+    // const data = {
+    //     'email': username,
+    //     'password': password,
+    //     'returnSecureToken': true
+    // }
+
+    //     try {
+    //         const response = await _axios.post(url, data, { headers })
+    //         return response.data
+    //     } catch (e) {
+    //         return null
+    //     }
+    // }
+
+    async update(idToken, { displayName, photoUrl, deleteAttribute }) {
+        return this._post('update', {
+            'idToken': idToken,
+            'displayName': displayName,
+            'photoUrl': photoUrl,
+            'deleteAttribute': deleteAttribute
+        })
+    }
+
+    // async update(idToken, { displayName, photoUrl, deleteAttribute }) {
+    //     const url = `${_AUTH_BASE_URL}:update?key=${API_KEY}`
+    //     const headers = { 'Content-Type': 'application/json' }
+    //     const data = {
+    //         'idToken': idToken,
+    //         'displayName': displayName,
+    //         'photoUrl': photoUrl,
+    //         'deleteAttribute': deleteAttribute,
+    //         'returnSecureToken': true
+    //     }
+
+    //     try {
+    //         const response = await _axios.post(url, data, { headers })
+    //         return response.data
+    //     } catch (e) {
+    //         return null
+    //     }
+    // }
 
     async signup(username, password) {
         return this._sign('signUp', username, password)
@@ -67,6 +114,12 @@ class AuthModel {
 
         return signInResult
     }
+
+    // Update profiles
+    // https://identitytoolkit.googleapis.com/v1/accounts:update?key=[API_KEY] 
+    // Documents: https://firebase.google.com/docs/reference/rest/auth
+
+
 
     // Add feature - set certain users to be admins. The info about admin is stored firestore collection 'admins'
     // Reference: https://firebase.google.com/docs/auth/admin/custom-claims       

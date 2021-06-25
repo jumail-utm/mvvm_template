@@ -13,4 +13,6 @@ class AuthServiceRest implements AuthService {
     final _user = User.fromJson(json[0]);
     return _user;
   }
+
+  Future<void> signout() async {}
 }

@@ -8,6 +8,8 @@ class AuthServiceMock implements AuthService {
         orElse: () => null);
     return _user;
   }
+
+  Future<void> signout() async {}
 }
 
 final _users = <User>[

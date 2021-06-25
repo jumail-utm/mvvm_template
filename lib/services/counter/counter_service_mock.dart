@@ -1,8 +1,10 @@
 import '../../models/counter.dart';
 import 'counter_service.dart';
+import '../../models/user.dart';
 
 class CounterServiceMock implements CounterService {
-  Future<Counter> getCounterByUser(dynamic userId) async {
+  Future<Counter> getCounterByUser(User user) async {
+    final userId = user.id;
     Counter _counter = _counters.firstWhere((counter) => counter.user == userId,
         orElse: () => null);
     return _counter;

@@ -16,7 +16,9 @@ class AuthServiceSecuredRest implements AuthService {
       // Pre-process json data to comply with the field of the User model
       json['id'] = json['localId'];
       json['name'] = json['displayName'];
-      json['token'] = json['idToken'];
+
+      // Get the access token and let the rest object stores that
+      rest.openSession(json['idToken']);
 
       final _user = User.fromJson(json);
       return _user;
@@ -24,4 +26,6 @@ class AuthServiceSecuredRest implements AuthService {
       return null;
     }
   }
+
+  Future<void> signout() async => rest.closeSession();
 }

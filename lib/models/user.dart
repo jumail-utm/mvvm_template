@@ -5,7 +5,6 @@ class User {
   String _photoUrl;
   String _login;
   String _password;
-  String _token;
 
   // ignore: unnecessary_getters_setters
   get id => _id;
@@ -24,30 +23,24 @@ class User {
   get password => _password;
   set password(value) => _password = value;
 
-  get token => _token;
-  set token(value) => _token = value;
-
   User(
       {dynamic id,
       String name = '',
       String photoUrl = '',
       String login = '',
-      String password = '',
-      String token = ''})
+      String password = ''})
       : _id = id,
         _name = name,
         _photoUrl = photoUrl,
         _login = login,
-        _password = password,
-        _token = token;
+        _password = password;
   User.copy(User from)
       : this(
             id: from.id,
             name: from.name,
             photoUrl: from.photoUrl,
             login: from.login,
-            password: from.password,
-            token: from.token);
+            password: from.password);
 
   User.fromJson(Map<String, dynamic> json)
       : this(
@@ -56,7 +49,6 @@ class User {
           photoUrl: json['photoUrl'],
           login: json['login'],
           password: json['password'],
-          token: json['token'],
         );
 
   Map<String, dynamic> toJson() => {
@@ -64,7 +56,6 @@ class User {
         'name': name,
         'photoUrl': photoUrl,
         'login': login,
-        'password': password,
-        'token': token,
+        'password': password
       };
 }

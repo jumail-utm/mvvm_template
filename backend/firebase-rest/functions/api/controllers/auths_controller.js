@@ -43,6 +43,18 @@ class AuthsController {
             }
         })
 
+        // Update profile controller
+        this.router.post('/update', async (req, res, next) => {
+            try {
+                const {idToken, displayName, photoUrl,deleteAttribute} = req.body
+                const result = await this.model.update(idToken, {displayName, photoUrl,deleteAttribute})
+                if (!result) return res.sendStatus(400)
+                return res.status(200).json(result)
+            } catch (e) {
+                return next(e)
+            }
+        })
+
         // Signout --- do not use this signout yet
         // this.router.delete('/signout/:id', verifyAccessToken, async (req, res, next) => {
         //     try {
@@ -51,11 +63,14 @@ class AuthsController {
         //         return res.sendStatus(200)
         //     }
         //     catch (e) {
-                //_log('signout error ', e)  // only for debugging
+        //_log('signout error ', e)  // only for debugging
         //         return next(e)
         //     }
         // })
+
     }
+
+
 }
 
 // ---------------------------------------------------------------------
@@ -117,11 +132,11 @@ async function verifyAdminAccess(req, res, next) {
     try {
         const authModel = require('../models/auth_model')
 
-        _log('auths_controller.js > verifyAdminAccess > 1: ', {authModel, req} )
+        _log('auths_controller.js > verifyAdminAccess > 1: ', { authModel, req })
 
         const verifiedToken = await authModel.verifyHTTPAdminAccess(req)
 
-        _log('auths_controller.js > verifyAdminAccess > 2: ', {verifiedToken} )
+        _log('auths_controller.js > verifyAdminAccess > 2: ', { verifiedToken })
 
         if (verifiedToken) {
             req.user = verifiedToken // To pass the token the next middleware

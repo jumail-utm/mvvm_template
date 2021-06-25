@@ -13,4 +13,9 @@ class UserViewmodel extends Viewmodel {
 
   void authenticate(User user) async => _user =
       await _service.authenticate(login: user.login, password: user.password);
+
+  void signout() async {
+    _user = null;
+    await _service.signout();
+  }
 }

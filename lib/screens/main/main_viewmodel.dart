@@ -1,7 +1,5 @@
 import '../../app/dependencies.dart';
-import '../../services/counter/counter_service.dart';
 import '../../models/user.dart';
-import '../../models/counter.dart';
 import '../user/user_viewmodel.dart';
 import '../viewmodel.dart';
 
@@ -11,6 +9,8 @@ class MainViewmodel extends Viewmodel {
   set user(User value) => update(() async => _userViewmodel.user = value);
   void authenticate(User user) =>
       update(() async => _userViewmodel.authenticate(user));
+
+  void signout() => _userViewmodel.signout();
 
   bool get isUserSignedIn => _userViewmodel.isUserSignedIn;
 }

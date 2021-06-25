@@ -23,5 +23,5 @@ class SignedInBar extends Bar {
     );
   }
 
-  void _onPressLogoutButton() => _viewmodel.user = null;
+  void _onPressLogoutButton() => _viewmodel.signout();
 }
