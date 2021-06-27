@@ -42,7 +42,10 @@ class RestService {
       //_session != null if enableSession is True
 
       final token = await _session.getToken();
-      headers['Authorization'] = 'Bearer $token';
+
+      if (token != null) {
+        headers['Authorization'] = 'Bearer $token';
+      }
     }
     return headers;
   }
@@ -51,11 +54,7 @@ class RestService {
 //  share a common structure. Thus, we can refactor them into a method,
 //   i.e. _httpRequest()
 
-  _httpRequest(
-      // Future<Response>  Function(Uri uri, Map<String, String> headers, Map<String, dynamic> data, Encoding encoding) fn,
-
-      Function fn,
-      String endpoint,
+  _httpRequest(Function fn, String endpoint,
       {dynamic data,
       Map<String, String> headers,
       Encoding encoding,

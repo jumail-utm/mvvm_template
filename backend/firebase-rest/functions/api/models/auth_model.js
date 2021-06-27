@@ -17,6 +17,9 @@ const API_KEY = _functions.config().api.key
 
 // Resource: Setting Up Firebase Environment configuration
 //   https://firebase.google.com/doc/functions/config-env
+// 
+// Authentication from Google Identity REST API
+//  https://firebase.google.com/docs/reference/rest/auth
 
 // Notes: In this model class, we did not extend from the base class 'Model'
 //        because it does not use Firestore service. Instead it usess
@@ -72,6 +75,11 @@ class AuthModel {
     //     }
     // }
 
+    // Update profiles
+    // https://identitytoolkit.googleapis.com/v1/accounts:update?key=[API_KEY] 
+    // Documents: https://firebase.google.com/docs/reference/rest/auth
+
+
     async update(idToken, { displayName, photoUrl, deleteAttribute }) {
         return this._post('update', {
             'idToken': idToken,
@@ -114,12 +122,6 @@ class AuthModel {
 
         return signInResult
     }
-
-    // Update profiles
-    // https://identitytoolkit.googleapis.com/v1/accounts:update?key=[API_KEY] 
-    // Documents: https://firebase.google.com/docs/reference/rest/auth
-
-
 
     // Add feature - set certain users to be admins. The info about admin is stored firestore collection 'admins'
     // Reference: https://firebase.google.com/docs/auth/admin/custom-claims       

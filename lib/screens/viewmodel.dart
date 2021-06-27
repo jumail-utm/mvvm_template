@@ -7,7 +7,7 @@ class Viewmodel with ChangeNotifier {
 
   void turnBusy() {
     _busy = true;
-    notifyListeners();
+    // notifyListeners();   // Comment out this line to avoid flickery effects
   }
 
   void turnIdle() {

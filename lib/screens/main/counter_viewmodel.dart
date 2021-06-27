@@ -22,6 +22,6 @@ class CounterViewmodel extends Viewmodel {
   // synchronizer methods
   void increaseCounter() => update(() async {
         _counter.counter = _counter.counter + 1;
-        await service.updateCounter(_counter);
+       await service.updateCounter(_counter);
       });
 }
